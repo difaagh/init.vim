@@ -125,10 +125,11 @@ set cursorline
 inoremap jj <ESC>
 nnoremap Q @@
 map <S-o> o<ESC>k
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
+nnoremap <leader>f <C-w>h
+nnoremap <leader>l <C-w>l
+nnoremap <leader>n <C-w>j
+nnoremap <leader>u <C-w>k
+nnoremap <leader>; :bw<CR>
 "leader
 let mapleader = " "
 map <leader> :
@@ -311,3 +312,6 @@ nmap <silent> gm <Plug>(git-messenger)
 let g:Tlist_Ctags_Cmd='/usr/local/Cellar/ctags/5.8_2/bin/ctags'
 nnoremap <silent> <leader>t :TagbarToggle<CR>
 "lua require('dap-go').setup()
+
+" vim-go golang jump to implements with go guru
+nmap <silent> gh :GoImplements<CR>
