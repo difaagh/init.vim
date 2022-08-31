@@ -1,0 +1,37 @@
+{
+  "suggest.noselect": false,
+  "java.errors.incompleteClasspath.severity": "ignore",
+  "coc.preferences.formatOnSaveFiletypes": [
+    "javascript",
+    "typescriptreact",
+    "javascriptreact",
+    "typescript.tsx",
+    "graphql",
+    "html",
+    "css",
+    "typescript",
+    "go"
+  ],
+    "languageserver": {
+    "ccls": {
+      "command": "ccls",
+      "args": ["--log-file=/tmp/ccls.log", "-v=1"],
+      "filetypes": ["c", "cc", "cpp", "c++", "objc", "objcpp"],
+      "rootPatterns": [".ccls", "compile_commands.json"],
+      "initializationOptions": {
+         "cache": {
+           "directory": "/tmp/ccls"
+         },
+         "client": {
+          "snippetSupport": true
+         }
+       }
+    },
+    "go": {
+        "command": "gopls",
+        "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
+        "filetypes": ["go"]
+        }
+  }
+}
+
