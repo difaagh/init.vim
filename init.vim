@@ -19,6 +19,8 @@ Plug 'mattn/emmet-vim' " use <leader>, to trigger
 Plug 'tpope/vim-markdown'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'vim-scripts/fpc.vim'
+Plug 'leoluz/nvim-dap-go'
+Plug 'mfussenegger/nvim-dap'
 "----- end programming
 "----- git plugin
 Plug 'tpope/vim-fugitive'
@@ -308,3 +310,4 @@ nmap <silent> gm <Plug>(git-messenger)
 " ctags-exuberant / tagbar
 let g:Tlist_Ctags_Cmd='/usr/local/Cellar/ctags/5.8_2/bin/ctags'
 nnoremap <silent> <leader>t :TagbarToggle<CR>
+"lua require('dap-go').setup()
