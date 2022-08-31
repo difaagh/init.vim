@@ -130,6 +130,8 @@ nnoremap <leader>l <C-w>l
 nnoremap <leader>n <C-w>j
 nnoremap <leader>u <C-w>k
 nnoremap <leader>; :bw<CR>
+nnoremap <leader>o <C-o><CR>
+nnoremap <leader>e <C-r><CR>
 "leader
 let mapleader = " "
 map <leader> :
