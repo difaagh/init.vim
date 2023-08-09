@@ -4,8 +4,8 @@
 # Go to home directory
 cd ~
 
-# Install neovim
-sudo apt install git
+# Install neovim git node go
+# sudo apt install git
 
 # Create .config/nvim folder if not exists
 mkdir -p ~/.config/nvim
