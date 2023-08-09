@@ -1,26 +1,15 @@
 call plug#begin('~/.config/nvim/plugged')
 Plug 'deepl0n9/vim-arrowless' 
-"----- general
-Plug 'scrooloose/nerdtree' " in normal mode = <TAB> to show explorer
-"----- end general
 "----- colorscheme
 Plug 'mhartington/oceanic-next'
-Plug 'NLKNguyen/papercolor-theme'
-Plug 'ap/vim-css-color'
-Plug 'ayu-theme/ayu-vim'
-Plug 'leafgarland/typescript-vim'
-Plug 'peitalin/vim-jsx-typescript'
 "----- end colorscheme
 "----- programming
 Plug 'majutsushi/tagbar' " list function or class in current buffer
 Plug 'neoclide/coc.nvim',{'branch': 'release'}
 Plug 'eliba2/vim-node-inspect'
 Plug 'mattn/emmet-vim' " use <leader>, to trigger
-Plug 'tpope/vim-markdown'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-Plug 'vim-scripts/fpc.vim'
-Plug 'leoluz/nvim-dap-go'
-Plug 'mfussenegger/nvim-dap'
+Plug 'tpope/vim-rails'
 "----- end programming
 "----- git plugin
 Plug 'tpope/vim-fugitive'
@@ -41,25 +30,7 @@ Plug 'ryanoasis/vim-devicons' " show icons in nerdtree/explorer
 Plug 'terryma/vim-multiple-cursors' " select word with v or V and use CTRL-n to next, CTRL-p to prev, CTRL-x to skip
 Plug 'tomtom/tcomment_vim'  " comment code, use gc
 Plug 'tpope/vim-surround'  " change pair of {, ',... in normal mode = cs -> eg. cs`' meaning : change pair of ` to '
-Plug 'tpope/vim-eunuch' " use unix command inside vim --->
 
-" vim-eunuch DOC
-"
-" :Delete: Delete a buffer and the file on disk simultaneously.
-" :Unlink: Like :Delete, but keeps the now empty buffer.
-" :Move: Rename a buffer and the file on disk simultaneously.
-" :Rename: Like :Move, but relative to the current file's containing directory.
-" :Chmod: Change the permissions of the current file.
-" :Mkdir: Create a directory, defaulting to the parent of the current file.
-" :Cfind: Run find and load the results into the quickfix list.
-" :Clocate: Run locate and load the results into the quickfix list.
-" :Lfind/:Llocate: Like above, but use the location list.
-" :Wall: Write every open window. Handy for kicking off tools like guard.
-" :SudoWrite: Write a privileged file with sudo.
-" :SudoEdit: Edit a privileged file with sudo.
-"
-" <------
-" ----- end feature
 call plug#end()
 
 
@@ -68,10 +39,9 @@ call plug#end()
 "===== general
 " Or if you have Neovim >= 0.1.5
 set mouse=a
-if (has("termguicolors"))
- set termguicolors
-endif
-
+" if (has("termguicolors"))
+"  set termguicolors
+" endif
 set t_Co=256
 colorscheme OceanicNext
 set background=dark
@@ -84,8 +54,6 @@ nnoremap <silent> <localleader><space> :Rg<CR>
 nnoremap <silent> <leader><Space> :GFiles<CR>
 nnoremap <silent> <leader>a :Files<CR>
 nnoremap <silent> <leader>b :Buffers<CR>
-command! Light set background=light | colorscheme papercolor
-command! Dark set background=dark | colorscheme OceanicNext
 command! So :so ~/.config/nvim/init.vim | echo 'Vim Reloaded'
 command! Cdthis :cd %:p:h " command to change directory to current buffer
 command! This :pwd
@@ -122,6 +90,7 @@ set laststatus=2
 set cursorline
 
 "standart mapping
+nnoremap <leader><tab> :Lexplore<CR> :vertical resize 30<CR>
 inoremap jj <ESC>
 nnoremap Q @@
 map <S-o> o<ESC>k
@@ -132,6 +101,7 @@ nnoremap <leader>u <C-w>k
 nnoremap <leader>; :bw<CR>
 nnoremap <leader>o <C-o><CR>
 nnoremap <leader>e <C-r><CR>
+nnoremap <leader>z :noh<CR>
 "leader
 let mapleader = " "
 map <leader> :
@@ -172,8 +142,8 @@ let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.5, 'highlight': 'Comm
 "===== end fzf
 
 "===== coc
-let g:python_host_prog = '$PYENV_ROOT/versions/neovim2/bin/python'
-let g:python3_host_prog = '$PYENV_ROOT/versions/neovim3/bin/python'
+" highlight CocFloating ctermbg=7
+let g:python3_host_prog = '/usr/local/bin/python3'
 
 try
     nmap <silent> [e :call CocAction('diagnosticNext')<cr>
@@ -241,24 +211,10 @@ function! ShowDocumentation()
 endfunction
 
 " Highlight the symbol and its references when holding the cursor.
-autocmd CursorHold * silent call CocActionAsync('highlight')
+"autocmd CursorHold * silent call CocActionAsync('highlight')
 
 "===== end coc
 
-"===== nerdtree
-map <leader><tab> :NERDTreeToggle<CR>
-let NERDTreeShowHidden=1
-let NERDTreeShowBookmarks = 0
-let NERDTreeMinimalUi = 1
-let NERDTreedirArrows = 1
-"===== end nerdtree
-
-
-"===== markdown
-let vim_markdown_preview_github=1
-"Markdown to HTML
-nmap <localleader>md :%!/usr/local/bin/Markdown.pl --html4tags <cr>
-"===== end markdown
 
 "==== emmet
 let g:user_emmet_expandword_key = '<c-y>1'
@@ -284,27 +240,6 @@ let g:gitgutter_sign_removed = 'x'
 set updatetime=100 " update sign colum every quarter second = default is 4000
 "===== end gitgutter
 
-"==== vim-jsx-typescript
-autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescriptreact
-" light-grey
-" dark-grey
-hi tsxTypes guifg=#008cff
-" dark red
-hi tsxTagName guifg=#E06C75
-hi tsxComponentName guifg=#E06C75
-hi tsxCloseComponentName guifg=#E06C75
-
-" orange
-hi tsxCloseString guifg=#F99575
-hi tsxCloseTag guifg=#F99575
-hi tsxCloseTagName guifg=#F99575
-hi tsxAttributeBraces guifg=#F99575
-hi tsxEqual guifg=#F99575
-
-" yellow
-hi tsxAttrib guifg=#F8BD7F cterm=italic
-
-"==== end vim-jsx-typescript
 
 "==== git messenger
 nmap <silent> gm <Plug>(git-messenger)
@@ -313,7 +248,10 @@ nmap <silent> gm <Plug>(git-messenger)
 " ctags-exuberant / tagbar
 let g:Tlist_Ctags_Cmd='/usr/local/Cellar/ctags/5.8_2/bin/ctags'
 nnoremap <silent> <leader>t :TagbarToggle<CR>
-"lua require('dap-go').setup()
 
 " vim-go golang jump to implements with go guru
 nmap <silent> gh :GoImplements<CR>
+let g:go_gopls_options = ['-remote=unix;/tmp/gopls-daemon-socket']
+
+" ruby
+let g:ruby_host_prog = '~/.rbenv/versions/3.0.1/bin/neovim-ruby-host'
